@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Reval Membership Form</title>
+</head>
+<body class="bg-gray-100">
+
+    <div class="container mx-auto p-8">
+        <h2 class="text-3xl font-semibold text-center mb-8">Reval Membership Form</h2>
+
+        <!-- Membership Form -->
+        <form id="membershipForm" class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
+            <!-- Name -->
+            <div class="mb-4">
+                <label for="name" class="block text-sm font-medium text-gray-600">Name</label>
+                <input type="text" id="name" name="name" class="w-full mt-1 p-2 border rounded-md">
+            </div>
+
+            <!-- Father's Name -->
+            <div class="mb-4">
+                <label for="fatherName" class="block text-sm font-medium text-gray-600">Father's Name</label>
+                <input type="text" id="fatherName" name="fatherName" class="w-full mt-1 p-2 border rounded-md">
+            </div>
+
+            <!-- Address -->
+            <div class="mb-4">
+                <label for="address" class="block text-sm font-medium text-gray-600">Address</label>
+                <input type="text" id="address" name="address" class="w-full mt-1 p-2 border rounded-md">
+            </div>
+
+            <!-- Postal Area -->
+            <div class="mb-4">
+                <label for="postalArea" class="block text-sm font-medium text-gray-600">Postal Area</label>
+                <input type="text" id="postalArea" name="postalArea" class="w-full mt-1 p-2 border rounded-md">
+            </div>
+
+            <!-- Submit Button -->
+            <button type="button" id="submitBtn" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Submit</button>
+        </form>
+
+        <!-- Card Display -->
+        <div id="cardDisplay" class="mt-8 hidden">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h2 class="text-2xl font-semibold mb-4">Reval Membership Card</h2>
+
+                <!-- Display User Information -->
+                <p><strong>Name:</strong> <span id="cardName"></span></p>
+                <p><strong>Father's Name:</strong> <span id="cardFatherName"></span></p>
+                <p><strong>Address:</strong> <span id="cardAddress"></span></p>
+                <p><strong>Postal Area:</strong> <span id="cardPostalArea"></span></p>
+
+                <!-- Download Button -->
+                <button id="downloadBtn" class="mt-4 bg-green-500 text-white py-2 rounded-md hover:bg-green-600">Download Card</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Event listener for the submit button
+        document.getElementById('submitBtn').addEventListener('click', function () {
+            // Get user input values
+            const name = document.getElementById('name').value;
+            const fatherName = document.getElementById('fatherName').value;
+            const address = document.getElementById('address').value;
+            const postalArea = document.getElementById('postalArea').value;
+
+            // Display user information on the card
+            document.getElementById('cardName').textContent = name;
+            document.getElementById('cardFatherName').textContent = fatherName;
+            document.getElementById('cardAddress').textContent = address;
+            document.getElementById('cardPostalArea').textContent = postalArea;
+
+            // Show the card display section
+            document.getElementById('cardDisplay').classList.remove('hidden');
+        });
+
+        // Event listener for the download button
+        document.getElementById('downloadBtn').addEventListener('click', function () {
+            // Create a data URI for the card content
+            const cardContent = document.getElementById('cardDisplay').innerHTML;
+            const dataUri = 'data:text/html;charset=utf-8,' + encodeURIComponent(cardContent);
+
+            // Create a temporary link element and trigger the download
+            const downloadLink = document.createElement('a');
+            downloadLink.href = dataUri;
+            downloadLink.download = 'Reval_Membership_Card.html';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+
+            // Redirect to a new webpage (replace with your desired URL)
+            window.location.href = 'paidmain.html';
+        });
+    </script>
+
+</body>
+</html>
